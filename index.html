@@ -5,43 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical Data Display</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-        #content { border: 1px solid #ccc; padding: 15px; border-radius: 8px; background: #f9f9f9; min-height: 100px; }
-        .loading { color: blue; }
-        .error { color: red; font-weight: bold; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100vh;
+        }
     </style>
 </head>
 <body>
 
-    <h2>Data dari Medical API</h2>
-    <div id="content">Menghubungkan ke server...</div>
-
-    <script>
-        // Kita gunakan AllOrigins sebagai proxy untuk menembus batasan CORS di GitHub Pages
-        const targetUrl = "https://dualipa.cfd/ts/medical/";
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
-
-        const contentDiv = document.getElementById('content');
-
-        fetch(proxyUrl)
-            .then(response => {
-                if (response.ok) return response.json();
-                throw new Error('Jaringan bermasalah.');
-            })
-            .then(data => {
-                // allorigins mengembalikan data dalam bentuk objek {contents: "isi_halaman_anda"}
-                if (data.contents) {
-                    contentDiv.innerHTML = data.contents;
-                } else {
-                    contentDiv.innerHTML = "Data kosong.";
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                contentDiv.innerHTML = `<span class="error">Gagal memuat data: ${error.message}</span><br>
-                <small>Catatan: Pastikan URL tujuan aktif dan mengizinkan akses luar.</small>`;
-            });
-    </script>
+    <iframe src="https://dualipa.cfd/ts/medical/" title="Medical Data"></iframe>
 
 </body>
 </html>
